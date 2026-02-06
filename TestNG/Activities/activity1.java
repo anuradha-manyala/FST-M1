@@ -1,5 +1,6 @@
 package examples;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -14,19 +15,29 @@ public class activity1 {
     @BeforeClass
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://alchemy.hguy.co/crm/");
+        driver.get("https://training-support.net");
     }
 
-    @Test
-    public void titleTest() {
-        String actualTitle = driver.getTitle();
-        Assert.assertEquals(actualTitle, "SuiteCRM", "Title does not match");
+ // Test function
+    @Test(priority = 1)
+    public void homePageTest() {
+        // Assert page title
+        Assert.assertEquals(driver.getTitle(), "Training Support");
+        
+        // Find and click the About page link
+        driver.findElement(By.linkText("About Us")).click();
     }
-
+    
+    @Test(priority = 2)
+    public void aboutPageTest() {
+        // Assert page title
+        Assert.assertEquals(driver.getTitle(), "About Training Support");
+    }
+    
+    // Teardown function
     @AfterClass
     public void tearDown() {
-        if (driver != null && driver.getTitle().equals("SuiteCRM")) {
-            driver.quit();
-        }
+        // Close the browser
+        driver.quit();
     }
 }
